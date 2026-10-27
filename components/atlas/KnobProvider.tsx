@@ -13,7 +13,7 @@ const KNOBS: { key: keyof MaterialKnobs; label: string; min: number; max: number
 export function KnobProvider({ children, extra }: { children: ReactNode; extra?: ReactNode }) {
   const [k, setK] = useState<MaterialKnobs>(DEFAULT_KNOBS);
   return (
-    <div style={knobsToCssVars(k) as React.CSSProperties}>
+    <div className="mat-scope" style={knobsToCssVars(k) as React.CSSProperties}>
       <fieldset className="mb-8 grid gap-4 rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur md:grid-cols-5">
         <legend className="px-2 font-mono text-xs uppercase tracking-widest text-white/60">Shared tokens · --mat-*</legend>
         {KNOBS.map(({ key, label, min, max, step }) => (

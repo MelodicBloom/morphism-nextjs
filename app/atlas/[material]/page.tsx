@@ -17,7 +17,7 @@ export default function MaterialPage({ params }: { params: { material: string } 
   if (!isAtlasMaterial(params.material)) notFound();
   const s = MATERIAL_SPECS[params.material];
   return (
-    <main className="grid gap-10 lg:grid-cols-[1fr_22rem]">
+    <main id="main-content" className="grid gap-10 lg:grid-cols-[1fr_22rem]">
       <section>
         <h1 className="mb-2 text-4xl font-bold">{s.name}</h1>
         <p className="mb-6 text-white/70">{s.tagline}</p>

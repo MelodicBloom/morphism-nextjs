@@ -156,6 +156,11 @@
   --mat-specular: 0.6;
   --mat-lx: 0.707;
   --mat-ly: 0.707;
+}
+/* Derived tokens must be (re)declared on every scope that overrides the base
+   knobs (KnobProvider adds .mat-scope), otherwise var() resolves on :root and
+   inherits stale defaults. */
+:root, .mat-scope {
   /* derived */
   --mat-dist: calc(4px + 20px * var(--mat-depth));
   --mat-blur: calc(var(--mat-dist) * (1 + 2 * var(--mat-softness)));

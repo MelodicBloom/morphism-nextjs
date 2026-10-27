@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function AtlasIndex() {
   return (
-    <main>
+    <main id="main-content">
       <header className="mb-8 max-w-2xl">
         <h1 className="text-4xl font-bold md:text-5xl">Material Morphism Atlas</h1>
         <p className="mt-3 text-white/70">
