@@ -147,3 +147,96 @@
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.3);
 }
+
+/* ═══════════════ Material Morphism Atlas — shared tokens ═══════════════ */
+:root {
+  --mat-light-angle: 135deg;
+  --mat-depth: 0.6;
+  --mat-softness: 0.5;
+  --mat-specular: 0.6;
+  --mat-lx: 0.707;
+  --mat-ly: 0.707;
+}
+/* Derived tokens must be (re)declared on every scope that overrides the base
+   knobs (KnobProvider adds .mat-scope), otherwise var() resolves on :root and
+   inherits stale defaults. */
+:root, .mat-scope {
+  /* derived */
+  --mat-dist: calc(4px + 20px * var(--mat-depth));
+  --mat-blur: calc(var(--mat-dist) * (1 + 2 * var(--mat-softness)));
+  --mat-ox: calc(var(--mat-lx) * var(--mat-dist));
+  --mat-oy: calc(var(--mat-ly) * var(--mat-dist));
+  --glass-blur-px: calc(6px + 24px * var(--mat-softness));
+}
+
+.mat-specimen { position: relative; isolation: isolate; transition: box-shadow .4s, transform .4s; }
+.mat-specimen::after {
+  content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  background: linear-gradient(var(--mat-light-angle), rgba(255,255,255,calc(.55 * var(--mat-specular))), transparent 45%);
+  mix-blend-mode: soft-light;
+}
+
+/* Glass (strengthened) */
+.mat-glass {
+  background: linear-gradient(var(--mat-light-angle), rgba(255,255,255,.22), rgba(255,255,255,.04));
+  backdrop-filter: blur(var(--glass-blur-px)) saturate(170%);
+  -webkit-backdrop-filter: blur(var(--glass-blur-px)) saturate(170%);
+  border: 1px solid rgba(255,255,255,calc(.15 + .3 * var(--mat-specular)));
+  box-shadow: calc(var(--mat-ox) * -1) calc(var(--mat-oy) * -1) 0 0 transparent,
+    var(--mat-ox) var(--mat-oy) var(--mat-blur) rgba(0,0,0,calc(.15 + .25 * var(--mat-depth))),
+    inset 0 1px 0 rgba(255,255,255,calc(.5 * var(--mat-specular)));
+  border-radius: 1.75rem;
+}
+
+/* Neumorphism */
+.mat-neu {
+  background: #e4e8ee; border-radius: 2rem;
+  box-shadow: var(--mat-ox) var(--mat-oy) var(--mat-blur) rgba(163,177,198,calc(.4 + .4 * var(--mat-depth))),
+    calc(var(--mat-ox) * -1) calc(var(--mat-oy) * -1) var(--mat-blur) rgba(255,255,255,calc(.6 + .4 * var(--mat-specular)));
+}
+.mat-neu:focus-visible { outline: 3px solid #6366f1; outline-offset: 4px; }
+
+/* Clay */
+.mat-clay {
+  --clay-accent-rgb: 192, 132, 252;
+  background: linear-gradient(var(--mat-light-angle), #d8b4fe, #8b5cf6);
+  border-radius: 2.25rem;
+  box-shadow: var(--mat-ox) var(--mat-oy) var(--mat-blur) rgba(76,29,149,calc(.2 + .3 * var(--mat-depth))),
+    inset calc(var(--mat-ox) * -.4) calc(var(--mat-oy) * -.4) calc(var(--mat-blur) * .6) rgba(255,255,255,calc(.3 + .4 * var(--mat-specular))),
+    inset calc(var(--mat-ox) * .4) calc(var(--mat-oy) * .4) calc(var(--mat-blur) * .6) rgba(46,16,101,.35);
+}
+
+/* Wood */
+.mat-wood {
+  background: linear-gradient(var(--mat-light-angle), #b07a4a, #6b4226);
+  border-radius: 0.9rem;
+  box-shadow: var(--mat-ox) var(--mat-oy) var(--mat-blur) rgba(0,0,0,calc(.35 + .35 * var(--mat-depth))),
+    inset 0 1px 0 rgba(255,230,200,calc(.4 * var(--mat-specular))), inset 0 -3px 0 rgba(40,20,8,.5);
+}
+.mat-wood .mat-grain { position: absolute; inset: 0; border-radius: inherit; filter: url(#atlas-wood-grain); opacity: .55; mix-blend-mode: multiply; background: #a0703f; }
+
+/* Washi */
+.mat-washi {
+  background: #f7f1e5; border-radius: 4px;
+  box-shadow: var(--mat-ox) var(--mat-oy) var(--mat-blur) rgba(80,60,30,calc(.08 + .15 * var(--mat-depth))),
+    inset 0 0 40px rgba(255,248,230,calc(.5 * var(--mat-specular)));
+}
+.mat-washi .mat-grain { position: absolute; inset: 0; border-radius: inherit; filter: url(#atlas-washi-fiber); opacity: .5; mix-blend-mode: multiply; background: #efe6d4; }
+
+/* Nacre */
+.mat-nacre {
+  border-radius: 45% 55% 50% 50% / 55% 45% 55% 45%;
+  background:
+    conic-gradient(from var(--mat-light-angle), #fbe7f5, #d9f0ff, #e8ffe9, #fff3d6, #f3e1ff, #fbe7f5);
+  box-shadow: var(--mat-ox) var(--mat-oy) var(--mat-blur) rgba(0,0,0,calc(.25 + .3 * var(--mat-depth))),
+    inset 0 0 40px rgba(255,255,255,calc(.7 * var(--mat-specular))), inset 0 -10px 30px rgba(120,90,200,.25);
+}
+.mat-nacre .mat-sheen { position: absolute; inset: 0; border-radius: inherit;
+  background: linear-gradient(calc(var(--mat-light-angle) + 90deg), transparent 30%, rgba(255,0,180,.18), rgba(0,220,255,.18), transparent 70%);
+  mix-blend-mode: color-dodge; animation: nacre-drift 9s ease-in-out infinite alternate; }
+@keyframes nacre-drift { to { transform: rotate(18deg) scale(1.05); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .mat-nacre .mat-sheen { animation: none; }
+  .mat-specimen { transition: none; }
+}
