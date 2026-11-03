@@ -72,7 +72,8 @@ def main():
             assert page.evaluate('document.documentElement.scrollWidth <= innerWidth')
             page.screenshot(path=str(output/'glass-mobile.png'))
             motion=browser.new_page(viewport={'width':1440,'height':900},reduced_motion='no-preference')
-            motion.goto(BASE+'/atlas/glass',wait_until='domcontentloaded')
+            motion.goto(BASE+'/atlas/glass?blur=9',wait_until='domcontentloaded')
+            expect(motion.get_by_label(re.compile(r'^Glass blur'))).to_have_value('9')
             specimen=motion.locator('.mat-glass');specimen.hover()
             motion.wait_for_timeout(500)
             assert specimen.evaluate('el => getComputedStyle(el).transform')=='none'
