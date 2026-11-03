@@ -52,6 +52,8 @@ def main():
             page.screenshot(path=str(output/'glass-desktop.png'))
             page.goto(BASE+'/atlas/glass?blur=999&saturation=bad',wait_until='domcontentloaded')
             expect(blur).to_have_value('40'); expect(saturation).to_have_value('170')
+            page.goto(BASE+'/atlas/glass?blur=-1&saturation=999',wait_until='domcontentloaded')
+            expect(blur).to_have_value('0'); expect(saturation).to_have_value('300')
             page.goto(BASE+'/atlas/glass?blur=3&blur=4&saturation=200',wait_until='domcontentloaded')
             expect(blur).to_have_value('18'); expect(saturation).to_have_value('200')
             page.get_by_role('button',name='Reset',exact=True).click()

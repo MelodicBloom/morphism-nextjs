@@ -17,7 +17,7 @@ function parseGlass(search: string): GlassKnobs {
   const params = new URLSearchParams(search);
   const read = (key: keyof GlassKnobs, max: number) => {
     const values = params.getAll(key);
-    if (values.length !== 1 || !/^\d+(?:\.\d+)?$/.test(values[0])) return DEFAULT_GLASS[key];
+    if (values.length !== 1 || !/^-?\d+(?:\.\d+)?$/.test(values[0])) return DEFAULT_GLASS[key];
     const value = Number(values[0]);
     return Number.isFinite(value) ? Math.round(Math.max(0, Math.min(max, value))) : DEFAULT_GLASS[key];
   };
