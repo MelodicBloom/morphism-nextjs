@@ -49,11 +49,11 @@ export function KnobProvider({ children, extra, glassControls = false }: { child
   }
   return (
     <div className="mat-scope" style={{ ...knobsToCssVars(k), ...(glassControls ? { '--atlas-glass-blur': `${glass.blur}px`, '--atlas-glass-saturation': `${glass.saturation}%` } : {}) } as React.CSSProperties}>
-      <fieldset className="mb-8 grid gap-4 rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur md:grid-cols-5">
+      <fieldset className="mb-8 grid grid-cols-2 gap-4 rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur md:grid-cols-5">
         <legend className="px-2 font-mono text-xs uppercase tracking-widest text-white/60">Shared tokens · --mat-*</legend>
         {KNOBS.map(({ key, label, min, max, step }) => (
           <label key={key} className="flex flex-col gap-1 text-sm text-white/80">
-            <span className="flex justify-between">
+            <span className="flex flex-wrap justify-between gap-x-2">
               {label}
               <code className="text-white/50">{key === 'lightAngle' ? `${k[key]}°` : k[key].toFixed(2)}</code>
             </span>
@@ -66,7 +66,7 @@ export function KnobProvider({ children, extra, glassControls = false }: { child
         ))}
         {glassControls && ([{ key: 'blur', label: 'Glass blur', max: 40, unit: 'px' }, { key: 'saturation', label: 'Glass saturation', max: 300, unit: '%' }] as const).map(({ key, label, max, unit }) => (
           <label key={key} className="flex flex-col gap-1 text-sm text-white/80">
-            <span className="flex justify-between">{label}<code className="text-white/50">{glass[key]}{unit}</code></span>
+            <span className="flex flex-wrap justify-between gap-x-2">{label}<code className="text-white/50">{glass[key]}{unit}</code></span>
             <input type="range" min={0} max={max} step={1} value={glass[key]} className="accent-pink-400"
               onChange={(e) => updateGlass({ ...glass, [key]: Number(e.target.value) })} />
           </label>

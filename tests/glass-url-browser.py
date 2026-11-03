@@ -61,6 +61,10 @@ def main():
             assert 'blur' not in parse_qs(urlsplit(page.url).query)
             assert 'saturation' not in parse_qs(urlsplit(page.url).query)
             page.set_viewport_size({'width':390,'height':844})
+            page.evaluate('window.scrollTo(0,0)')
+            box=page.locator('.mat-glass').bounding_box()
+            assert box and box['y'] < 804, box
+            assert page.evaluate('document.documentElement.scrollWidth <= innerWidth')
             page.screenshot(path=str(output/'glass-mobile.png'))
             assert not errors,errors
             browser.close()
