@@ -11,6 +11,7 @@ export function MaterialDetail({ material }: { material: AtlasMaterial }) {
   const [preset, setPreset] = useState<GlassPreset>('ripple');
   return (
     <KnobProvider
+      glassControls={material === 'glass'}
       extra={
         material === 'glass' ? (
           <select
@@ -28,3 +29,4 @@ export function MaterialDetail({ material }: { material: AtlasMaterial }) {
     </KnobProvider>
   );
 }
+
