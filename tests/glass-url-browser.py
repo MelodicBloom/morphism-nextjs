@@ -31,6 +31,7 @@ def main():
             errors=[]
             page.on('pageerror',lambda e:errors.append(str(e)))
             page.goto(BASE+'/atlas/glass?blur=10&saturation=120&tag=keep#proof',wait_until='domcontentloaded')
+            page.get_by_text('Refraction-inspired glass over a living backdrop.').wait_for()
             blur=page.get_by_label(re.compile(r'^Glass blur'))
             saturation=page.get_by_label(re.compile(r'^Glass saturation'))
             expect(blur).to_have_value('10'); expect(saturation).to_have_value('120')

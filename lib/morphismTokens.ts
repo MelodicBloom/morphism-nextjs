@@ -109,7 +109,7 @@ export const MATERIAL_SPECS: Record<AtlasMaterial, MaterialSpec> = {
   glass: {
     id: 'glass',
     name: 'Glass',
-    tagline: 'Real refraction over a living backdrop.',
+    tagline: 'Refraction-inspired glass over a living backdrop.',
     optimizesFor: 'Layering and context — you keep sight of what lies beneath while a surface floats above it.',
     optimizesAgainst: 'Legibility on busy content and low-power devices; backdrop-filter is a GPU cost, not a free texture.',
     keeps: 'The tension between transparency and contrast is held open: frost presets trade view for readability on purpose.',
@@ -190,3 +190,4 @@ export function knobsToCssVars(k: MaterialKnobs): Record<string, string> {
 export function isAtlasMaterial(v: string): v is AtlasMaterial {
   return (ATLAS_MATERIALS as readonly string[]).includes(v);
 }
+
