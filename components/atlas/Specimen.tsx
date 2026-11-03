@@ -75,8 +75,8 @@ export function Specimen({
         aria-label={`${spec.name} specimen`}
         className={cn('mat-specimen flex flex-col items-start justify-end p-5 text-left', spec.className, dims)}
         style={{ color: material === 'nacre' ? '#1e1b4b' : spec.ink }}
-        whileHover={reduce ? undefined : { y: -6, scale: 1.02 }}
-        whileTap={reduce ? undefined : { y: 2, scale: 0.97 }}
+        whileHover={reduce || material === 'glass' ? undefined : { y: -6, scale: 1.02 }}
+        whileTap={reduce || material === 'glass' ? undefined : { y: 2, scale: 0.97 }}
         transition={{ type: 'spring', stiffness: 320, damping: 18 }}
       >
         {(material === 'wood' || material === 'washi') && <span className="mat-grain" aria-hidden />}
@@ -87,3 +87,4 @@ export function Specimen({
     </div>
   );
 }
+

@@ -18,7 +18,7 @@ One hub that presents glass, neu, clay, wood, washi, and nacre as a single mater
    - Shared axes: `--mat-light-angle`, `--mat-depth`, `--mat-softness`, `--mat-specular`
    - Per-material surface/border/shadow/radius/motionCharacter (add neu, wood, washi, nacre; strengthen glass)
 3. **Glass specimen** — `GlassPanel` with real `backdrop-filter`; embed 1–2 SVG filter presets (refraction/frost) inlined or fetched from MelodicBloom/svg-filter-lab patterns; URL-tunable knobs for blur/saturation. Glass detail accepts integer `blur` (0–40 px) and `saturation` (0–300%); malformed or repeated values use defaults and out-of-range values are bounded. Sliders update the current URL, preserve unrelated parameters, and reset removes these two parameters. Browser back/forward restores values. The standalone glass blur replaces the shared softness-derived blur on this detail route only.
-4. **UI** — Atlas nav linking materials; token knobs (range inputs) that update CSS vars live; `prefers-reduced-motion` disables heavy motion
+4. **UI** — Atlas nav linking materials; token knobs (range inputs) that update CSS vars live; `prefers-reduced-motion` disables heavy motion. Glass stays stationary on hover and press so the clipped refraction remains aligned; other materials keep their motion.
 5. **Copy** — short preservative note per material: what it optimizes for / against
 
 ## Success criteria

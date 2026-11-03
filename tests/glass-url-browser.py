@@ -55,6 +55,8 @@ def main():
             expect(blur).to_have_value('40'); expect(saturation).to_have_value('170')
             page.goto(BASE+'/atlas/glass?blur=-1&saturation=999',wait_until='domcontentloaded')
             expect(blur).to_have_value('0'); expect(saturation).to_have_value('300')
+            page.goto(BASE+'/atlas/glass?blur=0.5&saturation=150.5',wait_until='domcontentloaded')
+            expect(blur).to_have_value('18'); expect(saturation).to_have_value('170')
             page.goto(BASE+'/atlas/glass?blur=3&blur=4&saturation=200',wait_until='domcontentloaded')
             expect(blur).to_have_value('18'); expect(saturation).to_have_value('200')
             page.get_by_role('button',name='Reset',exact=True).click()
@@ -67,6 +69,12 @@ def main():
             assert box and box['y'] < 804, box
             assert page.evaluate('document.documentElement.scrollWidth <= innerWidth')
             page.screenshot(path=str(output/'glass-mobile.png'))
+            motion=browser.new_page(viewport={'width':1440,'height':900},reduced_motion='no-preference')
+            motion.goto(BASE+'/atlas/glass',wait_until='domcontentloaded')
+            specimen=motion.locator('.mat-glass');specimen.hover()
+            motion.wait_for_timeout(500)
+            assert specimen.evaluate('el => getComputedStyle(el).transform')=='none'
+            motion.close()
             assert not errors,errors
             browser.close()
         print('PASS: bounded glass URL state, CSS, reload, reset and desktop/mobile smoke')
