@@ -74,6 +74,9 @@ def main():
             specimen=motion.locator('.mat-glass');specimen.hover()
             motion.wait_for_timeout(500)
             assert specimen.evaluate('el => getComputedStyle(el).transform')=='none'
+            motion.mouse.down(); motion.wait_for_timeout(200)
+            assert specimen.evaluate('el => getComputedStyle(el).transform')=='none'
+            motion.mouse.up()
             motion.close()
             assert not errors,errors
             browser.close()
