@@ -144,3 +144,13 @@ npm run build
 ## License
 
 MIT
+
+## Visual proof
+
+[![Live demo](https://img.shields.io/badge/live%20demo-morphism-nextjs.vercel.app-111?style=for-the-badge&logo=vercel)](https://morphism-nextjs.vercel.app)
+
+[![morphism-nextjs hero loop](docs/visual-proof/hero-poster.jpg)](docs/visual-proof/hero.mp4)
+
+Poster links to an 8 s hero loop (`docs/visual-proof/hero.mp4`); social card at `docs/visual-proof/og.png`. Generated with [visual-proof-kit](https://github.com/MelodicBloom/visual-proof-kit).
+
+Lighthouse: run locally — `npx lighthouse https://morphism-nextjs.vercel.app --view`
